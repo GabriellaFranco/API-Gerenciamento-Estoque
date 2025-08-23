@@ -1,4 +1,4 @@
-package com.enterprise.gestaoestoque.entity;
+package com.enterprise.gestaoestoque.model.entity;
 
 import com.enterprise.gestaoestoque.enums.UserProfile;
 import jakarta.persistence.*;
