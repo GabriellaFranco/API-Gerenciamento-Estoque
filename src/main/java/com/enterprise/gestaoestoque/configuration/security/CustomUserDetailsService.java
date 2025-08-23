@@ -1,6 +1,6 @@
 package com.enterprise.gestaoestoque.configuration.security;
 
-import com.enterprise.gestaoestoque.UserRepository;
+import com.enterprise.gestaoestoque.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

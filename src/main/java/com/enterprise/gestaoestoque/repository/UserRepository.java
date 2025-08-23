@@ -1,4 +1,4 @@
-package com.enterprise.gestaoestoque;
+package com.enterprise.gestaoestoque.repository;
 
 import com.enterprise.gestaoestoque.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
