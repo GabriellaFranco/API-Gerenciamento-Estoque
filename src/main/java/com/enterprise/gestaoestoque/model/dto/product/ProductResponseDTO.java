@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public record ProductResponseDTO(
         Long id,
-        String nome,
+        String name,
         ProductCategory category,
         MeasurementUnit measurementUnit,
         Boolean isActive,
@@ -19,7 +19,7 @@ public record ProductResponseDTO(
 ) {
     @Builder
     public record LotDTO(
-            Long lotCode,
+            String lotCode,
             LotStatus status,
             LocalDate expirationDate
     ) {}

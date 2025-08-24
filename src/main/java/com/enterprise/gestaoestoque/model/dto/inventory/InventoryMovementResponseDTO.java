@@ -1,5 +1,6 @@
 package com.enterprise.gestaoestoque.model.dto.inventory;
 
+import com.enterprise.gestaoestoque.enums.LotStatus;
 import com.enterprise.gestaoestoque.enums.MeasurementUnit;
 import com.enterprise.gestaoestoque.enums.MovementType;
 import com.enterprise.gestaoestoque.enums.UserProfile;
@@ -14,7 +15,7 @@ public record InventoryMovementResponseDTO(
         Double quantity,
         MeasurementUnit measurementUnit,
         LocalDateTime dateAndTime,
-        Long lotId,
+        LotDTO lot,
         UserDTO user
 ) {
     @Builder
@@ -22,5 +23,11 @@ public record InventoryMovementResponseDTO(
             Long id,
             String name,
             UserProfile profile
+    ) {}
+
+    @Builder
+    public record LotDTO(
+            String lotCode,
+            LotStatus status
     ) {}
 }
