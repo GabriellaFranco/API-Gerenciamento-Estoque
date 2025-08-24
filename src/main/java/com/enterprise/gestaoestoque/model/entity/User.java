@@ -44,4 +44,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
     )
     private List<Authority> authorities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<InventoryMovement> inventoryMovements = new ArrayList<>();
 }

@@ -22,6 +22,7 @@ public class Authority {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<User> users = new ArrayList<>();
 }
