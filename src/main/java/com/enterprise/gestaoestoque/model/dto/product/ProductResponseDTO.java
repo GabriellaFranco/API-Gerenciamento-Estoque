@@ -15,6 +15,7 @@ public record ProductResponseDTO(
         ProductCategory category,
         MeasurementUnit measurementUnit,
         Boolean isActive,
+        Long totalStock,
         List<LotDTO> lots
 ) {
     @Builder

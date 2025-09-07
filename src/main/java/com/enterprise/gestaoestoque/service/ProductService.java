@@ -86,7 +86,7 @@ public class ProductService {
         }
     }
 
-    private void validateProductMeasurementUnit(ProductCategory category, MeasurementUnit measurementUnit) {
+    protected void validateProductMeasurementUnit(ProductCategory category, MeasurementUnit measurementUnit) {
         boolean hortifruti = category.equals(ProductCategory.HORTIFRUTI);
         boolean kg = measurementUnit.equals(MeasurementUnit.KG);
         boolean g = measurementUnit.equals(MeasurementUnit.G);
