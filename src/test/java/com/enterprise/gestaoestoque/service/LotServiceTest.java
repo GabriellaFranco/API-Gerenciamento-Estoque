@@ -198,7 +198,7 @@ public class LotServiceTest {
     }
 
     @Test
-    void updateProductTotalStock_WhenLotsAreUsed_ShouldRecalculateProductStock()
+    void updateProductTotalStock_WhenLotsAndMovementsExist_ShouldRecalculateProductStock()
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         var compra = new InventoryMovement();
@@ -209,8 +209,10 @@ public class LotServiceTest {
         uso.setMovementType(MovementType.USO_PRODUCAO);
         uso.setQuantity(10.0);
 
-        when(lotRepository.findByProductAndStatus(product, LotStatus.ATIVO)).thenReturn(List.of(lot));
-        when(inventoryMovementRepository.findByLot(lot)).thenReturn(List.of(compra, uso));
+        when(lotRepository.findByProductAndStatus(product, LotStatus.ATIVO))
+                .thenReturn(List.of(lot));
+        when(inventoryMovementRepository.findByLot(lot))
+                .thenReturn(List.of(compra, uso));
 
         var method = LotService.class.getDeclaredMethod("updateProductTotalStock", Product.class);
         method.setAccessible(true);
@@ -219,6 +221,7 @@ public class LotServiceTest {
         assertThat(product.getTotalStock()).isEqualTo(45L);
         verify(productRepository).save(product);
     }
+
 
 
     @Test

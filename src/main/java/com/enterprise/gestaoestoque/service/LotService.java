@@ -41,7 +41,8 @@ public class LotService {
     }
 
     public LotResponseDTO getLotById(Long id) {
-        return lotRepository.findById(id).map(lotMapper::toLotResponseDTO)
+        return lotRepository.findById(id)
+                .map(lotMapper::toLotResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado: " + id));
     }
 
@@ -51,6 +52,7 @@ public class LotService {
                 .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado: " + lotDTO.supplierId()));
         var product = productRepository.findById(lotDTO.productId())
                 .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado: " + lotDTO.productId()));
+
         validadeIfProductAndSupplierAreActive(product.getIsActive(), supplier.getIsActive());
 
         var lotEntity = lotMapper.toLot(lotDTO, product, supplier);
@@ -65,14 +67,18 @@ public class LotService {
     }
 
     @Transactional
-    @PreAuthorize("HasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteLot(Long id) {
-        var lot = lotRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado: " + id));
+        var lot = lotRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado: " + id));
         validateLotDelete(lot.getStatus());
+
         lotRepository.delete(lot);
+        updateProductTotalStock(lot.getProduct());
     }
 
     @Transactional
+    @Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos
     private void updateProductTotalStock(Product product) {
         long total = 0;
         var activeLots = lotRepository.findByProductAndStatus(product, LotStatus.ATIVO);
@@ -84,8 +90,8 @@ public class LotService {
             for (var movement : inventoryMovements) {
                 if (movement.getMovementType().equals(MovementType.COMPRA)) {
                     currentQty += movement.getQuantity().longValue();
-                } else if (movement.getMovementType().equals(MovementType.USO_PRODUCAO) ||
-                        movement.getMovementType().equals(MovementType.PERDA)) {
+                } else if (movement.getMovementType().equals(MovementType.USO_PRODUCAO)
+                        || movement.getMovementType().equals(MovementType.PERDA)) {
                     currentQty -= movement.getQuantity().longValue();
                 }
             }
@@ -96,6 +102,7 @@ public class LotService {
         product.setTotalStock(total);
         productRepository.save(product);
     }
+
 
     @Transactional
     @Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos
@@ -120,13 +127,10 @@ public class LotService {
     }
 
     private static String generateLotCode() {
-        var length = 15;
-        var sb = new StringBuilder(length);
+        var sb = new StringBuilder(15);
         var random = ThreadLocalRandom.current();
-
-        for(int i = 0; i < length; i++) {
-            var index = random.nextInt(ALPHABET.length());
-            sb.append(ALPHABET.charAt(index));
+        for (int i = 0; i < 15; i++) {
+            sb.append(ALPHABET.charAt(random.nextInt(ALPHABET.length())));
         }
         return sb.toString();
     }
@@ -145,5 +149,4 @@ public class LotService {
             throw new BusinessException("Fornecedor inativo no sistema, não foi possível criar lote");
         }
     }
-
 }
