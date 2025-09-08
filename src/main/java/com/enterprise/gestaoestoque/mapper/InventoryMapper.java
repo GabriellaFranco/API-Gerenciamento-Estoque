@@ -20,7 +20,7 @@ public class InventoryMapper {
                 .build();
     }
 
-    public InventoryMovementResponseDTO toInventoryMovementDTO(InventoryMovement inventoryMovement) {
+    public InventoryMovementResponseDTO toInventoryMovementResponseDTO(InventoryMovement inventoryMovement) {
         return InventoryMovementResponseDTO.builder()
                 .id(inventoryMovement.getId())
                 .movementType(inventoryMovement.getMovementType())

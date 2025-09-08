@@ -202,27 +202,26 @@ public class LotServiceTest {
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         var compra = new InventoryMovement();
-        compra.setMovementType(MovementType.COMPRA);
+        compra.setMovementType(MovementType.PERDA);
         compra.setQuantity(5.0);
 
         var uso = new InventoryMovement();
         uso.setMovementType(MovementType.USO_PRODUCAO);
         uso.setQuantity(10.0);
 
+        when(productRepository.findByIsActive(true)).thenReturn(List.of(product));
         when(lotRepository.findByProductAndStatus(product, LotStatus.ATIVO))
                 .thenReturn(List.of(lot));
         when(inventoryMovementRepository.findByLot(lot))
                 .thenReturn(List.of(compra, uso));
 
-        var method = LotService.class.getDeclaredMethod("updateProductTotalStock", Product.class);
+        var method = LotService.class.getDeclaredMethod("updateAllProductsTotalStock");
         method.setAccessible(true);
-        method.invoke(lotService, product);
+        method.invoke(lotService);
 
-        assertThat(product.getTotalStock()).isEqualTo(45L);
+        assertThat(product.getTotalStock()).isEqualTo(35L);
         verify(productRepository).save(product);
     }
-
-
 
     @Test
     void deleteLot_WhenCalled_ShouldDeleteSuccessfully() {

@@ -1,7 +1,6 @@
 package com.enterprise.gestaoestoque.service;
 
 import com.enterprise.gestaoestoque.enums.LotStatus;
-import com.enterprise.gestaoestoque.enums.MovementType;
 import com.enterprise.gestaoestoque.exception.BusinessException;
 import com.enterprise.gestaoestoque.exception.ResourceNotFoundException;
 import com.enterprise.gestaoestoque.mapper.LotMapper;
@@ -67,7 +66,7 @@ public class LotService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SUPERVISOR')")
     public void deleteLot(Long id) {
         var lot = lotRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Lote não encontrado: " + id));
@@ -78,31 +77,15 @@ public class LotService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos
-    private void updateProductTotalStock(Product product) {
-        long total = 0;
-        var activeLots = lotRepository.findByProductAndStatus(product, LotStatus.ATIVO);
-
-        for (Lot lot : activeLots) {
-            long currentQty = lot.getCurrentQtd();
-
-            var inventoryMovements = inventoryMovementRepository.findByLot(lot);
-            for (var movement : inventoryMovements) {
-                if (movement.getMovementType().equals(MovementType.COMPRA)) {
-                    currentQty += movement.getQuantity().longValue();
-                } else if (movement.getMovementType().equals(MovementType.USO_PRODUCAO)
-                        || movement.getMovementType().equals(MovementType.PERDA)) {
-                    currentQty -= movement.getQuantity().longValue();
-                }
-            }
-
-            total += currentQty;
-        }
+    public void updateProductTotalStock(Product product) {
+        long total = lotRepository.findByProductAndStatus(product, LotStatus.ATIVO)
+                .stream()
+                .mapToLong(Lot::getCurrentQtd)
+                .sum();
 
         product.setTotalStock(total);
         productRepository.save(product);
     }
-
 
     @Transactional
     @Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos
