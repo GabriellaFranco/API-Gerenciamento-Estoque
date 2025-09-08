@@ -36,6 +36,8 @@ public class Product {
     @Column(nullable = false)
     private Long minQuantity;
 
+    private Long totalStock;
+
     @Column(nullable = false)
     private Boolean isActive;
 

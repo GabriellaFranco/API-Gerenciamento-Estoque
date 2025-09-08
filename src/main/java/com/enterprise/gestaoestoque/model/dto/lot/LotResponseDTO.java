@@ -2,6 +2,7 @@ package com.enterprise.gestaoestoque.model.dto.lot;
 
 import com.enterprise.gestaoestoque.enums.LotStatus;
 import com.enterprise.gestaoestoque.enums.MeasurementUnit;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 
 import java.time.LocalDate;
@@ -13,8 +14,13 @@ public record LotResponseDTO(
         Long initialQtd,
         Long currentQtd,
         MeasurementUnit measurementUnit,
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate entryDate,
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate expirationDate,
+
         LotStatus status,
         SupplierDTO supplier,
         ProductDTO product

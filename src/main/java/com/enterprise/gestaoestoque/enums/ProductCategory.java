@@ -7,8 +7,6 @@ public enum ProductCategory {
     CARNES_E_AVES,
     BEBIDAS,
     NAO_PERECIVEIS,
-    PERECIVEIS,
-    CONGELADOS,
-    ORGANICOS,
+    CONGELADOS
 
 }

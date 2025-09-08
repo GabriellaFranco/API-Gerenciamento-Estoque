@@ -26,5 +26,6 @@ public record UserRequestDTO(
         @NotBlank
         UserProfile profile
 
+
 ) {
 }

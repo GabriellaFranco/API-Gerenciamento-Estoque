@@ -26,6 +26,7 @@ public class ProductMapper {
                 .name(product.getName())
                 .category(product.getCategory())
                 .measurementUnit(product.getMeasurementUnit())
+                .totalStock(product.getTotalStock())
                 .isActive(product.getIsActive())
                 .lots(product.getLots().stream().map(lot -> ProductResponseDTO.LotDTO.builder()
                         .lotCode(lot.getLotCode())
