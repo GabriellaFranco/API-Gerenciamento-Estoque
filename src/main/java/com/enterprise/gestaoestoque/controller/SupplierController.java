@@ -77,7 +77,7 @@ public class SupplierController {
 
     @Operation(
             summary = "Exclui o fornecedor com o id informado. Para chamar este endpoint" +
-                    " é necessário possuir a permissão 'SUPERVISOR'",
+                    " é necessário possuir a permissão 'SUPERVISOR' ou 'ADMIN'",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
@@ -85,7 +85,7 @@ public class SupplierController {
             }
     )
     @DeleteMapping("/id")
-    @PreAuthorize("hasRole('SUPERVISOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public ResponseEntity<String> deleteSupplier(@PathVariable Long id) {
         supplierService.deleteSupplier(id);
         return ResponseEntity.ok("Fornecedor excluído com sucesso: " + id);

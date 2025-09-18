@@ -59,7 +59,7 @@ public class ProductService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('SUPERVISOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public void deleteProduct(Long id) {
         var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado: " + id));

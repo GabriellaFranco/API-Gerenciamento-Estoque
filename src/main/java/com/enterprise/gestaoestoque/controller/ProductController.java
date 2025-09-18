@@ -77,7 +77,7 @@ public class ProductController {
 
     @Operation(
             summary = "Exclui o produto com o id informado. Para chamar este endpoint" +
-                    " é necessário possuir a permissão 'SUPERVISOR'",
+                    " é necessário possuir a permissão 'SUPERVISOR' ou 'ADMIN'",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
@@ -85,7 +85,7 @@ public class ProductController {
             }
     )
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasHole('SUPERVISOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok("Produto excluído com sucesso: " + id);

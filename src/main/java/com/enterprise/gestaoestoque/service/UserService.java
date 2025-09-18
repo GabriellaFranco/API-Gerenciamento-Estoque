@@ -32,17 +32,20 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
     private  final PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public Page<UserResponseDTO> getAllUsers(Pageable pageable) {
         var users = userRepository.findAll(pageable);
         return users.map(userMapper::toUserResponseDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public UserResponseDTO getUserById(Long id) {
         return userRepository.findById(id).map(userMapper::toUserResponseDTO)
                 .orElseThrow(() -> new ResourceAccessException("Usuário não encontrado: " + id));
     }
 
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public UserResponseDTO createUser(UserRequestDTO userDTO) {
         validateUniqueEmail(userDTO.email(), null);
         var userEntity = userMapper.toUser(userDTO);

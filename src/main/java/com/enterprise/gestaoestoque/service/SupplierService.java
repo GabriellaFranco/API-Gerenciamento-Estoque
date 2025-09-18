@@ -53,7 +53,7 @@ public class SupplierService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('SUPERVISOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public void deleteSupplier(Long id) {
         var supplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado: " + id));
