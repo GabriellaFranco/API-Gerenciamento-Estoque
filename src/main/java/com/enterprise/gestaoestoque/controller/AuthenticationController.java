@@ -27,7 +27,7 @@ public class AuthenticationController {
     private final JWTUtil jwtUtil;
 
     @Operation(
-            summary = "Altera a senha do usuário autenticado",
+            summary = "Altera a senha do usuário autenticado.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos ou senha atual incorreta"),
@@ -42,7 +42,7 @@ public class AuthenticationController {
 
     @Operation(
             summary = "Atualiza o perfil e as autoridades de um usuário. Para chamar este endpoint é necessário possuir a" +
-                    "permissão 'ADMIN'",
+                    "permissão 'ADMIN'.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos"),
@@ -61,7 +61,7 @@ public class AuthenticationController {
     }
 
     @Operation(
-            summary = "Autentica o usuário e retorna um token JWT",
+            summary = "Autentica o usuário e retorna um token JWT.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos"),

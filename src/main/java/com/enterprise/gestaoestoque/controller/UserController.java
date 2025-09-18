@@ -25,7 +25,7 @@ public class UserController {
 
     @Operation(
             summary = "Retorna todos os usuários, em páginas com 10 objetos ordenados por id." +
-                    "Para chamar este endpoint é necessário possuir permissão de 'ADMIN' ou 'SUPERVISOR'",
+                    "Para chamar este endpoint é necessário possuir permissão de 'ADMIN' ou 'SUPERVISOR'.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
@@ -41,11 +41,11 @@ public class UserController {
 
     @Operation(
             summary = "Retorna um usuário com o id informado. Para chamar este endpoint é necessário possuir " +
-                    "permissão de 'ADMIN' ou 'SUPERVISOR'",
+                    "permissão de 'ADMIN' ou 'SUPERVISOR'.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
-                    @ApiResponse(responseCode = "404", description = "Fornecedor não encontrado")
+                    @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
             }
     )
     @GetMapping("/{id}")
@@ -56,7 +56,7 @@ public class UserController {
 
     @Operation(
             summary = "Cria um novo usuário. Para chamar este endpoint é necessário possuir " +
-                    "permissão de 'ADMIN' ou 'SUPERVISOR'",
+                    "permissão de 'ADMIN' ou 'SUPERVISOR'.",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @Operation(
-            summary = "Atualiza o email do usuário logado",
+            summary = "Atualiza o email do usuário logado.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos"),
@@ -86,11 +86,11 @@ public class UserController {
 
     @Operation(
             summary = "Exclui o usuário com o id informado. Para chamar este endpoint" +
-                    " é necessário possuir a permissão 'ADMIN'",
+                    " é necessário possuir a permissão 'ADMIN'.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
-                    @ApiResponse(responseCode = "404", description = "Fornecedor não encontrado")
+                    @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
             }
     )
     @DeleteMapping("/{id}")

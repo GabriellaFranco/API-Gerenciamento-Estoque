@@ -24,7 +24,7 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @Operation(
-            summary = "Retorna todos os fornecedores, em páginas com 10 objetos ordenados por id",
+            summary = "Retorna todos os fornecedores, em páginas com 10 objetos ordenados por id.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "204", description = "Nenhum registro a exibir")
@@ -37,7 +37,7 @@ public class SupplierController {
     }
 
     @Operation(
-            summary = "Retorna um fornecedor com o id informado",
+            summary = "Retorna um fornecedor com o id informado.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "404", description = "Fornecedor não encontrado")
@@ -49,7 +49,7 @@ public class SupplierController {
     }
 
     @Operation(
-            summary = "Cria um novo fornecedor",
+            summary = "Cria um novo fornecedor.",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Sucesso"),
                     @ApiResponse(responseCode = "400", description = "Informações inválidas")
@@ -63,7 +63,7 @@ public class SupplierController {
     }
 
     @Operation(
-            summary = "Atualiza o fornecedor com o id correspondente",
+            summary = "Atualiza o fornecedor com o id correspondente.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos"),
@@ -77,7 +77,7 @@ public class SupplierController {
 
     @Operation(
             summary = "Exclui o fornecedor com o id informado. Para chamar este endpoint" +
-                    " é necessário possuir a permissão 'SUPERVISOR' ou 'ADMIN'",
+                    " é necessário possuir a permissão 'SUPERVISOR' ou 'ADMIN'.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso"),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão"),
